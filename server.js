@@ -4,8 +4,6 @@ const router = require("./router");
 const db = require("./db");
 const Error = require("./utils/Error");
 
-require("dotenv").config();
-
 const app = express();
 
 const PORT = process.env.PORT || 8080;
@@ -27,7 +25,7 @@ app.use((req, res, next) => {
 //error handling..........
 app.use((error, req, res, next) => {
   res
-    .status(error.code || "500")
+    .status(error.code || 500)
     .json({ message: error.message, status: error.code });
 });
 
