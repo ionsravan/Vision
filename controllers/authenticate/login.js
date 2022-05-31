@@ -34,8 +34,8 @@ const login = async (req, res, next) => {
           expiresIn: "7d",
         }
       );
-      return res.status(200).json({
-        message: "Login successful",
+      return res.json({
+        message: "Successful",
         result: {
           _id: requiredUser._id,
           email: requiredUser.email,

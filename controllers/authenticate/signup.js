@@ -1,7 +1,7 @@
 const Error = require("../../utils/Error");
 const UserModel = require("../../models/user.model");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const sendEmail = require("../../utils/sendInBlueConfig");
 
 const signup = async (req, res, next) => {
   try {
@@ -18,23 +18,22 @@ const signup = async (req, res, next) => {
 
     const hashPass = await bcrypt.hash(password, 10);
 
+    //generate code to send in email....
+    let randomCode = Math.floor(Math.random() * 90000) + 10000;
+    await sendEmail(email, fullName, randomCode);
+    let currentTime = Math.floor(Date.now() / 1000);
+
     const newUser = new UserModel({
       email,
       fullName,
       password: hashPass,
       isVerified: false,
+      code: {
+        value: randomCode,
+        creationTime: currentTime,
+      },
     });
     await newUser.save();
-
-    // const token = jwt.sign(
-    //   {
-    //     id: newUser._id,
-    //   },
-    //   process.env.JWT_SECRET,
-    //   {
-    //     expiresIn: "7d",
-    //   }
-    // );
 
     return res.status(200).json({
       message: "Successful",
@@ -46,6 +45,7 @@ const signup = async (req, res, next) => {
       },
     });
   } catch (error) {
+    // console.log(error);
     return next(error);
   }
 };

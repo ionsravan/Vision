@@ -45,7 +45,7 @@ const authenticate = async (req, res, next) => {
       );
 
       res.status(200).json({
-        message: "Authentication successful",
+        message: "Successful",
         token,
       });
     }
