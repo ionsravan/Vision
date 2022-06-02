@@ -5,6 +5,7 @@ const schema = new Schema({
   movieUrl: { type: String, required: true },
   name: { type: String, required: true },
   releaseYear: { type: String, required: true },
+  ageLimit: { type: String, required: true },
   description: { type: String, required: true },
   category: { type: String, required: true },
 });

@@ -5,6 +5,7 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  profilePhoto: { type: String, required: false },
   fullName: {
     type: String,
     required: true,

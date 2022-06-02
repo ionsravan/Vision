@@ -6,10 +6,10 @@ const { upload } = require("../../S3");
 
 const addMovies = async (req, res, next) => {
   try {
-    const { name, releaseYear, description } = req.body;
+    const { name, releaseYear, description, ageLimit } = req.body;
     const category = req.body.category?.toUpperCase();
 
-    if (!name || !releaseYear || !category || !description) {
+    if (!name || !releaseYear || !category || !description || !ageLimit) {
       throw new Error("Required parameters missing", 400);
     }
 
@@ -63,6 +63,7 @@ const addMovies = async (req, res, next) => {
       displayPoster: posterUrl,
       movieUrl: movieUrl,
       name,
+      ageLimit,
       releaseYear,
       description,
       category,

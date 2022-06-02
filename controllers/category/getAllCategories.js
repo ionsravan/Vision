@@ -1,5 +1,4 @@
 const Error = require("../../utils/Error");
-const MovieModel = require("../../models/movies.model");
 const CategoryModel = require("../../models/category.model");
 
 const getAllCategories = async (req, res, next) => {
