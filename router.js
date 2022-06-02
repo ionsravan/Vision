@@ -13,6 +13,7 @@ const addTvShow = require("./controllers/TvShows/addTvShow");
 const addEpisode = require("./controllers/TvShows/episodes/addEpisodeToShow");
 const getTvShow = require("./controllers/TvShows/getTvShow");
 const addUserProfilePhoto = require("./controllers/User/addUserProfilePhoto");
+const changePassword = require("./controllers/User/changePassword");
 
 const router = Router();
 
@@ -48,6 +49,8 @@ router.post(
   avatarFile.single("avatar"),
   addUserProfilePhoto
 );
+
+router.post("/user/changePassword", authMiddleware, changePassword);
 
 //movies routes
 
