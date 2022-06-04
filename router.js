@@ -14,6 +14,9 @@ const addEpisode = require("./controllers/TvShows/episodes/addEpisodeToShow");
 const getTvShow = require("./controllers/TvShows/getTvShow");
 const addUserProfilePhoto = require("./controllers/User/addUserProfilePhoto");
 const changePassword = require("./controllers/User/changePassword");
+const adminSignup = require("./controllers/admin/signup");
+const adminLogin = require("./controllers/admin/login");
+const adminAuthMiddleware = require("./middlewares/admin.auth.md");
 
 const router = Router();
 
@@ -37,6 +40,10 @@ router.get("/", (req, res) => {
   res.send("welcome to Vision!");
 });
 
+//admin routes
+router.post("/admin/signup", adminSignup);
+router.post("/admin/login", adminLogin);
+
 //auth routes
 router.post("/signup", userSignup);
 router.post("/verifyEmail", userVerifyEmail);
@@ -59,13 +66,23 @@ const multipleUpload = mediaFiles.fields([
   { name: "file" },
 ]);
 router.get("/movies/getMovie", authMiddleware, getMovies);
-router.post("/movies/addMovie", authMiddleware, multipleUpload, addMovie);
+router.post("/movies/addMovie", adminAuthMiddleware, multipleUpload, addMovie);
 
 //tv shows routes
-router.post("/tvShows/addTvshow", multipleUpload, addTvShow);
+router.post(
+  "/tvShows/addTvshow",
+  adminAuthMiddleware,
+  multipleUpload,
+  addTvShow
+);
 router.get("/tvShows/getTvShow", getTvShow);
 //episodes routes
-router.post("/tvShows/addEpisode", multipleUpload, addEpisode);
+router.post(
+  "/tvShows/addEpisode",
+  adminAuthMiddleware,
+  multipleUpload,
+  addEpisode
+);
 
 //category routes
 
